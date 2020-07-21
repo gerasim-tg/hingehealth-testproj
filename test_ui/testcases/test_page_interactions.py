@@ -1,4 +1,5 @@
 import pytest
+import time
 from test_ui.base.mybase import MyBase
 from test_ui.testdata import page_constants as const
 from test_ui.pageobjects import tree_page
@@ -24,11 +25,11 @@ class TestTreeManipulation:
         TestTreeManipulation.base.open_page(const.tree_url)
         self.animal_tree = tree_page.AnimalTree(TestTreeManipulation.base.driver)
         print(f'current url: {TestTreeManipulation.base.driver.current_url}')
-        # time.sleep(3)
+        time.sleep(3)
         txt_box = self.animal_tree.get_ant_text_box()
         txt_box.send_keys("rat")
         txt_box.send_keys(Keys.RETURN)
-        # time.sleep(5)
+        time.sleep(3)
         animals = self.animal_tree.find_tree_text()
         # verify if rat label is on the page
         assert "rat" in animals, 'Expected creation of rat element'
@@ -42,6 +43,6 @@ class TestTreeManipulation:
                 self.animal_tree.find_delete_node_btn_in_list_element(each).click()
                 break
 
-        # time.sleep(3)
+        time.sleep(3)
         # verify that 'rat' is no longer in my tree
         assert "rat" not in self.animal_tree.find_tree_text(), f'Deletion of rat element failed, tree text: {self.animal_tree.find_tree_text()}'
